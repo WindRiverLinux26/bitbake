@@ -262,7 +262,10 @@ class Git(FetchMethod):
                 ud.unresolvedrev = ud.revision
             ud.revision = self.latest_revision(ud, d, ud.name)
 
-        gitsrcname = '%s%s' % (ud.host.replace(':', '.'), ud.path.replace('/', '.').replace('*', '.').replace(' ','_').replace('(', '_').replace(')', '_'))
+        if ud.proto == "file":
+            gitsrcname = '%s' % os.path.basename(ud.path)
+        else:
+            gitsrcname = '%s%s' % (ud.host.replace(':', '.'), ud.path.replace('/', '.').replace('*', '.').replace(' ','_').replace('(', '_').replace(')', '_'))
         if gitsrcname.startswith('.'):
             gitsrcname = gitsrcname[1:]
 
