@@ -32,7 +32,7 @@ import bb.event
 import bb.runqueue
 import bb.utils
 
-featureSet = [bb.cooker.CookerFeatures.SEND_SANITYEVENTS, bb.cooker.CookerFeatures.BASEDATASTORE_TRACKING]
+featureSet = [bb.cooker.CookerFeatures.SEND_SANITYEVENTS]
 
 logger = logging.getLogger("BitBake")
 interactive = sys.stdout.isatty()
