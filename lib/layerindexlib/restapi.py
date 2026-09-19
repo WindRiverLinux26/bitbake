@@ -374,8 +374,18 @@ class RestApiPlugin(layerindexlib.plugin.IndexPlugin):
                 layerdependency = layerindexlib.LayerDependency(index, layerdep)
 
                 layeritem = layerdependency.dependency
-                layerbranch = layerdependency.dependency_layerBranch
 
+                try:
+                    layerbranch = layerdependency.dependency_layerBranch
+                except AttributeError as e:
+                    os.write(2, ('Skipping unresolved dependency %s -> %s (required=%s, key=%s:%s): %s\n' % (
+                        layerdependency.layer.name,
+                        layerdependency.dependency.name,
+                        layerdependency.required,
+                        layerdependency.dependency_id,
+                        layerdependency.layerbranch.branch_id,
+                        e)).encode())
+                    continue
                 # We need to avoid duplicates...
                 if layeritem._data not in pindex['layerItems']:
                     pindex['layerItems'].append(layeritem._data)
